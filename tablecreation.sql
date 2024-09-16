@@ -62,3 +62,20 @@ CREATE TABLE CustomerADs (
     promotion_id INT NOT NULL REFERENCES Promotions(id),
     date_sent TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE SupplierInventory (
+  id serial [pk]
+  supplier_id int 
+  menu_item_id int 
+  quantity_supplied int not null
+  supply_date timestamp not null default CURRENT_TIMESTAMP
+;)
+
+CREATE TABLE Suppliers (
+  id serial [pk]
+  name varchar(255) not null
+  contact_name varchar(255)
+  contact_phone varchar(15)
+  contact_email varchar(255)
+  address text
+)
