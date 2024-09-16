@@ -1,0 +1,48 @@
+
+```sql
+Table Branch_Dimension {
+  branch_id int [pk, increment]
+  branch_name varchar(255) [not null]
+  location varchar(255) [not null]
+}
+
+Table Menu_Item_Dimension {
+  menu_item_id int [pk, increment]
+  name varchar(255) [not null]
+  description text
+  category varchar(255)
+  price numeric(10,2) [not null]
+}
+
+Table Transaction_Type_Dimension {
+  transaction_type_id int [pk, increment]
+  transaction_type varchar(255) [not null]
+}
+
+Table Supplier_Dimension {
+  supplier_id int [pk, increment]
+  supplier_name varchar(255) [not null]
+  contact_info varchar(255)
+}
+
+Table Date_Dimension {
+  date_id int [pk, increment]
+  day int [not null]
+  month int [not null]
+  quarter int [not null]
+  year int [not null]
+  day_of_week varchar(50) [not null]
+}
+
+Table Inventory_Transactions_Fact {
+  transaction_id int [pk, increment]
+  branch_id int [ref: > Branch_Dimension.branch_id]
+  menu_item_id int [ref: > Menu_Item_Dimension.menu_item_id]
+  transaction_type_id int [ref: > Transaction_Type_Dimension.transaction_type_id]
+  supplier_id int [ref: > Supplier_Dimension.supplier_id]
+  date_id int [ref: > Date_Dimension.date_id]
+  quantity int [not null]
+  unit_price numeric(10,2) [not null]
+  total_amount numeric(10,2) [not null]
+}
+```

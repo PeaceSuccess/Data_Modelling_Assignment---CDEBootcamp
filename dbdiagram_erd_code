@@ -1,0 +1,62 @@
+Table Branches {
+  id serial [pk]
+  name varchar(255) [not null, unique]
+  location varchar(255) [not null]
+}
+
+Table MenuItems {
+  id serial [pk]
+  name varchar(255) [not null]
+  description text
+  price numeric(10,2) [not null]
+}
+
+Table Inventory {
+  id serial [pk]
+  branch_id int [ref: > Branches.id]
+  menu_item_id int [ref: > MenuItems.id]
+  quantity int [not null]
+  reorder_level int [not null]
+  last_restocked timestamp [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+Table Customers {
+  id serial [pk]
+  first_name varchar(255) [not null]
+  last_name varchar(255) [not null]
+  email varchar(255) [not null, unique]
+  phone_number varchar(15) [not null, unique]
+}
+
+Table Orders {
+  id serial [pk]
+  customer_id int [ref: > Customers.id]
+  branch_id int [ref: > Branches.id]
+  order_date timestamp [not null, default: `CURRENT_TIMESTAMP`]
+  total_amount numeric(10,2) [not null]
+  payment_method varchar(255) [not null] -- cash, card, online
+  order_type varchar(255) [not null] -- dine-in, take-out, online
+}
+
+Table OrderDetails {
+  id serial [pk]
+  order_id int [ref: > Orders.id]
+  menu_item_id int [ref: > MenuItems.id]
+  quantity int [not null]
+  price numeric(10,2) [not null]
+}
+
+Table AD_Details {
+  id serial [pk]
+  branch_id int [ref: > Branches.id]
+  promo_description text
+  start_date date [not null]
+  end_date date [not null]
+}
+
+Table CustomerADs {
+  id serial [pk]
+  customer_id int [ref: > Customers.id]
+  promotion_id int [ref: > AD_Details.id]
+  date_sent timestamp [not null, default: `CURRENT_TIMESTAMP`]
+}
