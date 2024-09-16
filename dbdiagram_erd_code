@@ -60,3 +60,20 @@ Table CustomerADs {
   promotion_id int [ref: > AD_Details.id]
   date_sent timestamp [not null, default: `CURRENT_TIMESTAMP`]
 }
+
+Table Suppliers {
+  id serial [pk]
+  name varchar(255) [not null]
+  contact_name varchar(255)
+  contact_phone varchar(15)
+  contact_email varchar(255)
+  address text
+}
+
+Table SupplierInventory {
+  id serial [pk]
+  supplier_id int [ref: > Suppliers.id]
+  menu_item_id int [ref: > MenuItems.id]
+  quantity_supplied int [not null]
+  supply_date timestamp [not null, default: `CURRENT_TIMESTAMP`]
+}
